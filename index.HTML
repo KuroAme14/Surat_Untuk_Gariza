@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Surat Untuk Gariza</title>
+    
+    <!-- HUBUNGAN KE CSS -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Container untuk kelopak bunga berguguran -->
+        <div class="flower-rain" id="flower-rain"></div>
+
+        <div class="container">
+            <!-- Tambahkan dekorasi bunga pop-up di sekitar amplop -->
+            <div class="flower-decor hidden" id="flower-decor">
+                <span class="f-1">🌸</span>
+                    <span class="f-2">🌹</span>
+                 <span class="f-3">🌺</span>
+            <span class="f-4">🌷</span>
+     </div>
+    <div class="container">
+        <!-- AMPL0P -->
+        <div class="envelope" id="envelope">
+            <div class="flap"></div>
+        </div>
+
+        <!-- SEMUA SURAT -->
+        <div class="letter-box">
+            <div class="letter hidden" id="letter1">
+                <p>Hai, sayang akuuu Gariza Love Lovee Muaaah ♡</p>
+                <button class="btn-next">Lanjut</button>
+            </div>
+
+            <div class="letter hidden" id="letter2">
+                <p>Terima kasih, maaf kalo aku banyak kurangnya dan juga aku mau bilang kalo hal-hal kecil dari kamu selalu berarti bagi aku.</p>
+                <div class="nav-btns">
+                    <button class="btn-back">Kembali</button>
+                    <button class="btn-next">Lanjut</button>
+                </div>
+            </div>
+
+            <div class="letter hidden" id="letter3">
+                <img src="img/kenangan.png" class="photo" id="zoom-img">
+                <p>(Di Klik ya Gambarnyaa My Lovee)</p>
+                <div class="nav-btns">
+                    <button class="btn-back">Kembali</button>
+                    <button class="btn-next">Lanjut</button>
+                </div>
+            </div>
+
+            <div class="letter hidden" id="letter4">
+                <p>Selamat Hari Jadi Kita yang ke-1 Tahun 🤍 Love uuuu Sayangg</p>
+                <div class="nav-btns">
+                    <button class="btn-back">Kembali</button>
+                    <button id="btn-selesai" style="background: #ff4d4d;">Selesai</button>
+                </div>
+            </div>            
+    </div>
+
+    <!-- MODAL UNTUK POP-UP GAMBAR -->
+    <div id="image-modal" class="modal">
+        <span class="close-modal">&times;</span>
+        <img class="modal-content" id="img-full">
+    </div>
+
+    <!-- HUBUNGAN KE JAVASCRIPT (Taruh paling bawah sebelum body tutup) -->
+    <script src="script.js"></script>
+
+</body>
+</html>
