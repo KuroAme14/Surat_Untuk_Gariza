@@ -4,29 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Surat Untuk Gariza</title>
-    
-    <!-- HUBUNGAN KE CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <!-- Container untuk kelopak bunga berguguran -->
-        <div class="flower-rain" id="flower-rain"></div>
+        <!-- WADAH HATI MELAYANG -->
+        <div class="hearts-container">
+            <div class="floating-heart" style="top: 15%; left: 10%;">💗</div>
+            <div class="floating-heart" style="top: 70%; left: 15%;">❤</div>
+            <div class="floating-heart" style="top: 20%; left: 80%;">💗</div>
+            <div class="floating-heart" style="top: 80%; left: 85%;">❤</div>
+            <div class="floating-heart" style="top: 45%; left: 5%;">💗</div>
+            <div class="floating-heart" style="top: 50%; left: 90%;">❤</div>
+        </div>
+        <!-- BUNGA LATAR BELAKANG -->
+        <div class="bg-flower flower-tl">🌸</div>
+        <div class="bg-flower flower-br">🌺</div>
+    
+       
+    
+    <!-- AUDIO -->
+    <audio id="myAudio" loop>
+        <source src="mp3/mp3.mp3" type="audio/mpeg">
+    </audio>
+    
+    <div class="flower-rain" id="flower-rain"></div>
 
-        <div class="container">
-            <!-- Tambahkan dekorasi bunga pop-up di sekitar amplop -->
-            <div class="flower-decor hidden" id="flower-decor">
-                <span class="f-1">🌸</span>
-                    <span class="f-2">🌹</span>
-                 <span class="f-3">🌺</span>
-            <span class="f-4">🌷</span>
-     </div>
     <div class="container">
-        <!-- AMPL0P -->
+        <!-- INI YANG HILANG TADI, SAYA MASUKKAN LAGI DI SINI -->
+        <div class="flower-decor hidden" id="flower-decor">
+            <span class="f-1">🌸</span>
+            <span class="f-2">🌹</span>
+            <span class="f-3">🌺</span>
+            <span class="f-4">🌷</span>
+        </div>
+
         <div class="envelope" id="envelope">
             <div class="flap"></div>
         </div>
 
-        <!-- SEMUA SURAT -->
         <div class="letter-box">
             <div class="letter hidden" id="letter1">
                 <p>Hai, sayang akuuu Gariza Love Lovee Muaaah ♡</p>
@@ -34,7 +49,12 @@
             </div>
 
             <div class="letter hidden" id="letter2">
-                <p>Terima kasih, maaf kalo aku banyak kurangnya dan juga aku mau bilang kalo hal-hal kecil dari kamu selalu berarti bagi aku.</p>
+                <p>Terima kasih sayang aku, maaf kalo aku banyak kurangnya dan juga ini aku buat masih belum bagus hehe. Trimmakasih buat semuanya. hal-hal kecil dari kamu selalu berarti bagi aku.</p>
+                <hr style="border: 0; border-top: 1px solid #f3d5d5; margin: 15px 0;">
+                <p style="font-size: 0.9rem; color: #557A95;">Kita sudah bersama selama:</p>
+                <div id="countdown" style="font-weight: bold; font-size: 1.1rem; color: #85B4D9; margin: 5px 0;">
+                    00 Hari : 00 Jam : 00 Menit : 00 Detik
+                </div>
                 <div class="nav-btns">
                     <button class="btn-back">Kembali</button>
                     <button class="btn-next">Lanjut</button>
@@ -42,31 +62,36 @@
             </div>
 
             <div class="letter hidden" id="letter3">
-                <img src="img/kenangan.png" class="photo" id="zoom-img">
-                <p>(Di Klik ya Gambarnyaa My Lovee)</p>
+                <!-- Kontainer Foto Slider -->
+                <div class="photo-slider" id="photo-slider" style="position: relative; cursor: pointer;">
+                    <img src="img/kenangan.png" class="photo slider-img show" id="zoom-img">
+                    <img src="img/kenangan2.png" class="photo slider-img hidden">
+                    <img src="img/kenangan3.png" class="photo slider-img hidden">
+                </div>
+                
+                <p style="font-size: 0.8rem; color: #85B4D9; margin-top: 10px;">(Diklik yakk potonya sayangg ❤️)</p>
+                
                 <div class="nav-btns">
                     <button class="btn-back">Kembali</button>
                     <button class="btn-next">Lanjut</button>
                 </div>
             </div>
+            
 
             <div class="letter hidden" id="letter4">
                 <p>Selamat Hari Jadi Kita yang ke-1 Tahun 🤍 Love uuuu Sayangg</p>
                 <div class="nav-btns">
                     <button class="btn-back">Kembali</button>
-                    <button id="btn-selesai" style="background: #ff4d4d;">Selesai</button>
+                    <button id="btn-selesai" style="background: #ffb3ba; color: #557A95;">Selesai</button>
                 </div>
             </div>            
+        </div>
     </div>
 
-    <!-- MODAL UNTUK POP-UP GAMBAR -->
     <div id="image-modal" class="modal">
         <span class="close-modal">&times;</span>
         <img class="modal-content" id="img-full">
     </div>
-
-    <!-- HUBUNGAN KE JAVASCRIPT (Taruh paling bawah sebelum body tutup) -->
     <script src="script.js"></script>
-
 </body>
 </html>

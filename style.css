@@ -1,6 +1,6 @@
-/* DASAR TAMPILAN - TEMA ROMANTIC PASTELS */
+/* DASAR TAMPILAN - TEMA ROMANTIC PASTELS DENGAN NYAWA */
 body {
-    background: linear-gradient(135deg, #F9F8FB 0%, #B6E0ED 100%);
+    background: radial-gradient(circle at center, #ffffff 0%, #F9F8FB 40%, #B6E0ED 100%);
     color: #557A95;
     font-family: 'Georgia', serif;
     margin: 0;
@@ -9,8 +9,61 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow-x: hidden;
+    overflow: hidden; 
+    position: relative;
 }
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: radial-gradient(circle, transparent 60%, rgba(250, 221, 239, 0.2) 100%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* HATI MELAYANG */
+.hearts-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.floating-heart {
+    position: absolute;
+    font-size: 28px;
+    color: #FFB7CE; 
+    opacity: 0.8;
+    filter: drop-shadow(0 0 8px rgba(255, 183, 206, 0.6));
+    animation: floatHeart 5s infinite ease-in-out;
+}
+
+@keyframes floatHeart {
+    0%, 100% { transform: translateY(0) scale(1) rotate(0deg); }
+    50% { transform: translateY(-40px) scale(1.2) rotate(20deg); }
+}
+
+.floating-heart:nth-child(even) { animation-duration: 7s; animation-delay: 1s; }
+.floating-heart:nth-child(3n) { animation-duration: 9s; animation-delay: 2s; }
+
+/* BUNGA POJOK */
+.bg-flower {
+    position: fixed;
+    font-size: 160px;
+    filter: blur(1px) drop-shadow(0 0 15px rgba(250, 221, 239, 0.5));
+    opacity: 0.3;
+    z-index: 0;
+    animation: breathe 6s infinite alternate ease-in-out;
+}
+
+@keyframes breathe {
+    0% { transform: scale(1) rotate(0deg); opacity: 0.2; filter: blur(2px); }
+    100% { transform: scale(1.1) rotate(10deg); opacity: 0.5; filter: blur(0px); }
+}
+
+.flower-tl { top: -40px; left: -40px; }
+.flower-br { bottom: -40px; right: -40px; }
 
 .container {
     width: 100%;
@@ -23,25 +76,44 @@ body {
     z-index: 10;
 }
 
+/* DEKORASI BUNGA SURAT */
+.flower-decor {
+    position: absolute;
+    width: 100%; height: 100%;
+    z-index: 15;
+    pointer-events: none;
+}
+
+.flower-decor span {
+    position: absolute;
+    font-size: 45px;
+    opacity: 0;
+    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    filter: drop-shadow(0 0 10px white);
+}
+
+.f-1 { top: -30px; left: -30px; }
+.f-2 { top: -30px; right: -30px; }
+.f-3 { bottom: -30px; left: -30px; }
+.f-4 { bottom: -30px; right: -30px; }
+
+.show-decor span { opacity: 1; transform: scale(1.2); }
+
 /* AMPLOP */
 .envelope {
-    width: 280px;
-    height: 180px;
+    width: 280px; height: 180px;
     background: #FADDEF;
     position: relative;
     cursor: pointer;
     z-index: 2;
     transition: 0.5s;
     border-radius: 0 0 10px 10px;
-    box-shadow: 0 10px 30px rgba(133, 180, 217, 0.3);
+    box-shadow: 0 15px 35px rgba(133, 180, 217, 0.3);
 }
 
 .flap {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 0;
-    height: 0;
+    top: 0; left: 0; width: 0; height: 0;
     border-left: 140px solid transparent;
     border-right: 140px solid transparent;
     border-top: 100px solid #f3c1da;
@@ -50,9 +122,7 @@ body {
     z-index: 5;
 }
 
-.envelope.open .flap {
-    transform: rotateX(180deg);
-}
+.envelope.open .flap { transform: rotateX(180deg); }
 
 /* SISTEM SURAT */
 .letter {
@@ -65,167 +135,85 @@ body {
     box-shadow: 0 15px 45px rgba(133, 180, 217, 0.2);
     text-align: center;
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
+    top: 50%; left: 50%;
+    z-index: 20;
+    transition: all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55);
     opacity: 0;
     visibility: hidden;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    z-index: 20;
 }
 
-.letter.show {
+.letter.show { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+.letter.hidden { transform: translate(-50%, -50%) scale(0.5) rotate(-10deg); opacity: 0; }
+
+.letter p { line-height: 1.6; font-size: 1.1rem; color: #557A95; }
+
+/* --- TAMBAHAN: PHOTO SLIDER --- */
+.photo-slider {
+    width: 100%;
+    min-height: 200px;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.slider-img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s ease-in-out, transform 0.5s ease;
+}
+
+.slider-img.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: scale(0.9);
+}
+
+.slider-img.show {
     opacity: 1;
     visibility: visible;
-    transform: translate(-50%, -50%) scale(1);
-}
-
-.letter p {
-    line-height: 1.6;
-    font-size: 1.1rem;
-    color: #557A95;
+    position: relative; 
+    transform: scale(1);
 }
 
 /* TOMBOL NAVIGASI */
-.nav-btns {
-    display: flex;
-    gap: 12px;
-    justify-content: center;
-    margin-top: 20px;
-}
-
+.nav-btns { display: flex; gap: 12px; justify-content: center; margin-top: 20px; }
 button {
-    background: #85B4D9;
-    border: none;
-    padding: 10px 22px;
-    border-radius: 25px;
-    color: white;
-    font-family: 'Georgia', serif;
-    font-weight: bold;
-    cursor: pointer;
-    transition: 0.3s;
+    background: #85B4D9; border: none; padding: 10px 22px;
+    border-radius: 25px; color: white; font-family: 'Georgia', serif;
+    font-weight: bold; cursor: pointer; transition: 0.3s;
+    box-shadow: 0 4px 10px rgba(133, 180, 217, 0.3);
 }
-
-button:hover {
-    background: #557A95;
-    transform: translateY(-2px);
-}
-
+button:hover { background: #557A95; transform: translateY(-2px); box-shadow: 0 6px 15px rgba(133, 180, 217, 0.4); }
 .btn-next { background: #FADDEF; color: #557A95; }
-.btn-next:hover { background: #f3c1da; }
 
-/* MODAL / POP-UP GAMBAR (DI-UPDATE) */
+/* MODAL */
 .modal {
-    display: none; 
-    position: fixed; 
-    z-index: 999999; /* Tambah 9-nya agar super depan */
-    left: 0; 
-    top: 0; 
-    width: 100%; 
-    height: 100%; 
-    background-color: rgba(0,0,0,0.9);
-    display: none; /* Akan diubah jadi 'flex' lewat JS */
-    justify-content: center;
-    align-items: center;
-    cursor: zoom-out; /* Klik di mana saja untuk keluar */
+    display: none; position: fixed; z-index: 999999;
+    left: 0; top: 0; width: 100%; height: 100%; 
+    background-color: rgba(0,0,0,0.92);
+    justify-content: center; align-items: center;
 }
-.modal-content {
-    max-width: 85%;
-    max-height: 80%;
-    border-radius: 10px;
-    border: 3px solid #FADDEF;
-    cursor: default; /* Gambar sendiri tidak memicu zoom-out */
-    z-index: 1000000;
-}
-
-@keyframes zoom {
-    from {transform: scale(0)} 
-    to {transform: scale(1)}
-}
-
+.modal-content { max-width: 85%; max-height: 80%; border-radius: 10px; border: 3px solid #FADDEF; }
 .close-modal {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    color: white;
-    font-size: 60px; /* Diperbesar */
-    font-weight: bold;
-    cursor: pointer;
-    z-index: 1000001; /* Harus paling tinggi dari semuanya */
-    width: 60px;   /* Area klik diperlebar */
-    height: 60px;  /* Area klik diperlebar */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: rgba(0,0,0,0.2); /* Beri sedikit background agar terlihat */
-    border-radius: 50%;
+    position: absolute; top: 20px; right: 20px; color: white;
+    font-size: 60px; font-weight: bold; cursor: pointer;
+    z-index: 1000001; width: 60px; height: 60px;
+    display: flex; justify-content: center; align-items: center;
+    background: rgba(255,255,255,0.1); border-radius: 50%;
 }
 
-.close-modal:hover {
-    color: #FADDEF;
-}
-
-/* FOTO DI SURAT */
-.photo {
-    width: 100%;
-    height: auto;
-    border-radius: 12px;
-    border: 4px solid #FADDEF;
-    cursor: zoom-in;
-}
-
-/* ANIMASI BUNGA JATUH */
-.petal {
-    position: absolute;
-    top: -50px;
-    font-size: 20px;
-    animation: fall linear forwards;
-    opacity: 0.6;
-}
-
-@keyframes fall {
-    to { transform: translateY(100vh) rotate(360deg); }
-}
-
+/* FOTO & ANIMASI JATUH */
+.photo { width: 100%; height: auto; border-radius: 12px; border: 4px solid #FADDEF; cursor: zoom-in; }
+.petal { position: absolute; top: -50px; font-size: 20px; animation: fall linear forwards; opacity: 0.6; }
+@keyframes fall { to { transform: translateY(100vh) rotate(360deg); } }
 .hidden { display: none !important; }
 
-/* Dekorasi Bunga Pop-up di Belakang Surat */
-.flower-decor {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    z-index: 5;
-}
-
-.flower-decor span {
-    position: absolute;
-    font-size: 40px;
-    opacity: 0;
-    transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-}
-
-/* Posisi bunga pop-up (bisa kamu atur sesukamu) */
-.f-1 { top: -40px; left: 10px; }
-.f-2 { top: -40px; right: 10px; }
-.f-3 { bottom: 40px; left: -30px; }
-.f-4 { bottom: 40px; right: -30px; }
-
-.show-decor span {
-    opacity: 1;
-    transform: scale(1.2);
-}
-
-/* --- TAMBAHAN UNTUK HP LAYAR KECIL --- */
+/* RESPONSIF */
 @media (max-width: 480px) {
-    .letter {
-        width: 80%; /* Agar tidak terlalu mepet pinggir layar HP */
-        padding: 20px; 
-    }
-    .letter p {
-        font-size: 0.95rem; 
-    }
-    .nav-btns button {
-        padding: 8px 15px; /* Tombol sedikit dikecilkan agar muat berjajar */
-        font-size: 12px;
-    }
+    .letter { width: 80%; padding: 20px; }
+    .nav-btns button { padding: 8px 15px; font-size: 12px; }
+    .bg-flower { font-size: 110px; }
 }
