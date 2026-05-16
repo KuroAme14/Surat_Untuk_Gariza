@@ -1,6 +1,10 @@
 /* DASAR TAMPILAN - TEMA ROMANTIC PASTELS DENGAN NYAWA */
 body {
-    background: radial-gradient(circle at center, #ffffff 0%, #F9F8FB 40%, #B6E0ED 100%);
+    background-image: url('img/LatarBelakang.png'); 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
     color: #557A95;
     font-family: 'Georgia', serif;
     margin: 0;
@@ -9,7 +13,7 @@ body {
     justify-content: center;
     align-items: center;
     min-height: 100vh;
-    overflow: hidden; 
+    overflow-x: hidden; 
     position: relative;
 }
 
@@ -216,4 +220,35 @@ button:hover { background: #557A95; transform: translateY(-2px); box-shadow: 0 6
     .letter { width: 80%; padding: 20px; }
     .nav-btns button { padding: 8px 15px; font-size: 12px; }
     .bg-flower { font-size: 110px; }
+}
+
+/* --- PENGUNCI UKURAN ALBUM FOTO AGAR TIDAK MELUBER OUT OF FRAME --- */
+#photo-slider {
+    width: 100% !important;
+    height: 220px !important; /* Mengunci tinggi maksimal bingkai foto */
+    position: relative !important;
+    overflow: hidden !important; /* Memotong paksa bagian foto yang keluar dari jalur */
+    border-radius: 12px !important;
+}
+
+#photo-slider .img-wrapper {
+    width: 100% !important;
+    height: 100% !important;
+    position: relative !important;
+}
+
+/* Memaksa foto 1, 2, dan 3 mengikuti ukuran bingkai kotak putih */
+#photo-slider .slider-img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* Memotong foto vertikal secara estetik agar pas di kotak */
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+}
+
+/* Memperbaiki posisi tombol panah di dalam foto */
+#prev-photo, #next-photo {
+    top: 50% !important;
+    transform: translateY(-50%) !important;
 }

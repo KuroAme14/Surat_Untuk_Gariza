@@ -3,7 +3,6 @@ document.addEventListener("DOMContentLoaded", () => {
     const letters = document.querySelectorAll(".letter");
     const modal = document.getElementById("image-modal");
     const modalImg = document.getElementById("img-full");
-    const zoomImg = document.getElementById("zoom-img");
     const closeModal = document.querySelector(".close-modal");
     const btnSelesai = document.getElementById("btn-selesai");
     const audio = document.getElementById("myAudio");
@@ -89,13 +88,62 @@ document.addEventListener("DOMContentLoaded", () => {
         btn.onclick = () => showLetter(i);
     });
 
-    // --- 4. POP-UP GAMBAR ---
-    zoomImg.onclick = function(e) {
-        e.stopPropagation();
-        modal.style.display = "flex"; 
-        modalImg.src = this.src;
-        document.body.style.overflow = "hidden";
-    };
+    // --- 4. LOGIKA TOMBOL GESER PANAH & POP-UP ZOOM GAMBAR ---
+    const sliderImgs = document.querySelectorAll(".slider-img");
+    const btnPrevPhoto = document.getElementById("prev-photo");
+    const btnNextPhoto = document.getElementById("next-photo");
+    let currentPhotoIndex = 0;
+
+    // A. Fungsi Ganti Foto ke Kanan (Maju)
+    function nextPhoto() {
+        if (sliderImgs.length === 0) return;
+        sliderImgs[currentPhotoIndex].classList.remove("show");
+        sliderImgs[currentPhotoIndex].classList.add("hidden");
+
+        currentPhotoIndex = (currentPhotoIndex + 1) % sliderImgs.length;
+
+        sliderImgs[currentPhotoIndex].classList.remove("hidden");
+        sliderImgs[currentPhotoIndex].classList.add("show");
+    }
+
+    // B. Fungsi Ganti Foto ke Kiri (Mundur)
+    function prevPhoto() {
+        if (sliderImgs.length === 0) return;
+        sliderImgs[currentPhotoIndex].classList.remove("show");
+        sliderImgs[currentPhotoIndex].classList.add("hidden");
+
+        currentPhotoIndex = (currentPhotoIndex - 1 + sliderImgs.length) % sliderImgs.length;
+
+        sliderImgs[currentPhotoIndex].classList.remove("hidden");
+        sliderImgs[currentPhotoIndex].classList.add("show");
+    }
+
+    // C. Daftarkan Event Klik Tombol Panah
+    if (btnNextPhoto) {
+        btnNextPhoto.addEventListener("click", (e) => {
+            e.stopPropagation(); // Mencegah bentrok agar tidak membuka zoom saat klik panah
+            nextPhoto();
+        });
+    }
+    if (btnPrevPhoto) {
+        btnPrevPhoto.addEventListener("click", (e) => {
+            e.stopPropagation();
+            prevPhoto();
+        });
+    }
+
+    // D. Klik Tepat Pada Area Gambar yang Aktif Untuk Zoom Layar Penuh
+    sliderImgs.forEach((img) => {
+        img.addEventListener("click", (e) => {
+            if (e.target.classList.contains('show')) {
+                modal.style.display = "flex"; 
+                modalImg.src = e.target.src;
+                document.body.style.overflow = "hidden";
+            }
+        });
+    });
+
+    // Fungsi Menutup Modal Zoom (Tetap dipertahankan)
     closeModal.onclick = function() {
         modal.style.display = "none";
         document.body.style.overflow = "auto";
@@ -107,32 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     };
 
-    // --- 5. FITUR KLIK GANTI FOTO (SLIDER) ---
-    const sliderContainer = document.getElementById("photo-slider");
-    const sliderImgs = document.querySelectorAll(".slider-img");
-    let currentPhotoIndex = 0;
-
-    if (sliderContainer) {
-        sliderContainer.addEventListener("click", (e) => {
-            e.stopPropagation(); // Mencegah bentrok dengan zoom
-
-            // Sembunyikan foto sekarang
-            sliderImgs[currentPhotoIndex].classList.remove("show");
-            sliderImgs[currentPhotoIndex].classList.add("hidden");
-
-            // Ganti ke index berikutnya
-            currentPhotoIndex = (currentPhotoIndex + 1) % sliderImgs.length;
-
-            // Tampilkan foto berikutnya
-            sliderImgs[currentPhotoIndex].classList.remove("hidden");
-            sliderImgs[currentPhotoIndex].classList.add("show");
-            
-            // Update gambar zoom agar sesuai foto yang tampil
-            modalImg.src = sliderImgs[currentPhotoIndex].src;
-        });
-    }
-
-    // --- 6. COUNTDOWN ---
+    // --- 5. COUNTDOWN ---
     function startCountdown() {
         const startDate = new Date("2025-05-25T00:00:00").getTime(); 
         setInterval(() => {
@@ -148,14 +171,16 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     startCountdown();
 
-    // --- 7. TOMBOL SELESAI ---
-    btnSelesai.onclick = () => {
-        if(confirm("Apakah kamu yakin ingin menutup surat ini?")) {
-            document.body.innerHTML = `
-                <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; background:#F9F8FB; font-family:serif; color:#557A95; text-align:center; padding:20px;">
-                    <h2 style="animation: fadeIn 2s forwards;">I'll always love you, Gariza... 🌸</h2>
-                    <p style="animation: fadeIn 3s forwards;">Sampai jumpa di hari esok yang lebih indah.</p>
-                </div>`;
-        }
-    };    
+    // --- 6. TOMBOL SELESAI ---
+    if (btnSelesai) {
+        btnSelesai.onclick = () => {
+            if(confirm("Apakah kamu yakin ingin menutup surat ini?")) {
+                document.body.innerHTML = `
+                    <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; background:#F9F8FB; font-family:serif; color:#557A95; text-align:center; padding:20px;">
+                        <h2 style="animation: fadeIn 2s forwards;">I'll always love you, Gariza... 🌸</h2>
+                        <p style="animation: fadeIn 3s forwards;">Sampai jumpa di hari esok yang lebih indah.</p>
+                    </div>`;
+            }
+        };    
+    }
 });
