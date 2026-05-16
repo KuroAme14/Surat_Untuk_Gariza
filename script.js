@@ -171,16 +171,41 @@ document.addEventListener("DOMContentLoaded", () => {
     }
     startCountdown();
 
-    // --- 6. TOMBOL SELESAI ---
+     // --- 6. TOMBOL SELESAI INTERAKTIF (PESAN RAHASIA) ---
     if (btnSelesai) {
         btnSelesai.onclick = () => {
-            if(confirm("Apakah kamu yakin ingin menutup surat ini?")) {
-                document.body.innerHTML = `
-                    <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; background:#F9F8FB; font-family:serif; color:#557A95; text-align:center; padding:20px;">
-                        <h2 style="animation: fadeIn 2s forwards;">I'll always love you, Gariza... 🌸</h2>
-                        <p style="animation: fadeIn 3s forwards;">Sampai jumpa di hari esok yang lebih indah.</p>
-                    </div>`;
+            // Pertanyaan Pertama
+            if (confirm("Yakin mau menutup suratnya sekarang sayang? ❤️")) {
+                
+                // Pertanyaan Kedua (Meminta ketik kata kunci)
+                let kataKunci = prompt("Ketik 'I LOVE YOU' dulu dong baru boleh tutup 😋 (Harus huruf besar semua yaa!)");
+                
+                // Validasi jika jawabannya benar
+                if (kataKunci === "I LOVE YOU") {
+                    document.body.innerHTML = `
+                        <div style="display:flex; flex-direction:column; justify-content:center; align-items:center; height:100vh; background:#F9F8FB; font-family:serif; color:#557A95; text-align:center; padding:20px;">
+                            <h2 style="animation: fadeIn 2s forwards;">I'll always love you, Gariza... 🌸</h2>
+                            <p style="animation: fadeIn 3s forwards;">Sampai jumpa di hari esok yang lebih indah.</p>
+                        </div>`;
+                } else if (kataKunci !== null) {
+                    // Jika salah ketik atau menolak ketik
+                    alert("Yeeey salah ketik tuh! Ketik yang bener dulu baru boleh selesai 😜❤️");
+                }
             }
         };    
+    }
+
+// --- 7. EFEK ANIMASI MEMBAL SAAT FOTO DIKLIK ---
+    if (sliderContainer) {
+        sliderContainer.addEventListener("mousedown", () => {
+            sliderContainer.style.transform = "scale(0.95)";
+            sliderContainer.style.transition = "transform 0.1s ease";
+        });
+        sliderContainer.addEventListener("mouseup", () => {
+            sliderContainer.style.transform = "scale(1.03)";
+            setTimeout(() => {
+                sliderContainer.style.transform = "scale(1)";
+            }, 150);
+        });
     }
 });

@@ -252,3 +252,8 @@ button:hover { background: #557A95; transform: translateY(-2px); box-shadow: 0 6
     top: 50% !important;
     transform: translateY(-50%) !important;
 }
+
+/* --- EFEK TRANSISI MEMBAL ALBUM FOTO --- */
+#photo-slider {
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+}
